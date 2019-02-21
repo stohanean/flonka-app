@@ -3,7 +3,10 @@ stages:
   steps:
   - runScriptConfig:
       image: java:8
-      shellScript: ./FlonkaTestApp/gradlew clean build unpack
+      shellScript: |-
+        ./FlonkaTestApp/gradlew clean
+        ./FlonkaTestApp/gradlew build
+        ./FlonkaTestApp/gradlew unpack
   - publishImageConfig:
       dockerfilePath: ./FlonkaTestApp/Dockerfile
       buildContext: .
