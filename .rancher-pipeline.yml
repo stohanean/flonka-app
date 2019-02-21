@@ -2,14 +2,14 @@ stages:
 - name: test
   steps:
   - publishImageConfig:
-      dockerfilePath: ./Dockerfile
+      dockerfilePath: ./FlonkaTestApp/Dockerfile
       buildContext: .
       tag: stohanean/flonka-app:test
       registry: 127.0.0.1:34509
 - name: prod
   steps:
   - publishImageConfig:
-      dockerfilePath: ./Dockerfile
+      dockerfilePath: ./FlonkaTestApp/Dockerfile
       buildContext: .
       tag: stohanean/flonka-app:prod
       registry: 127.0.0.1:34509
