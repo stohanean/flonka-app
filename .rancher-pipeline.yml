@@ -1,16 +1,9 @@
-variables:
-    GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-before_script:
-    - chmod +x ./FlonkaTestApp/gradlew
 stages:
 - name: test
   steps:
   - runScriptConfig:
       image: java:8
       shellScript: ./FlonkaTestApp/gradlew build
-  - runScriptConfig:
-      image: java:8
-      shellScript: ./FlonkaTestApp/gradlew unpack
   - publishImageConfig:
       dockerfilePath: ./FlonkaTestApp/Dockerfile
       buildContext: .
