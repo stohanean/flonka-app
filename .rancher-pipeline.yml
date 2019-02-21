@@ -1,0 +1,12 @@
+stages:
+- name: test
+  steps:
+  - runScriptConfig:
+      image: java:8
+      shellScript: ./gradlew clean build unpack
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: stohanean/flonka-app:test
+      registry: 127.0.0.1:34509
+timeout: 60
