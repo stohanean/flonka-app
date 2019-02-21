@@ -5,7 +5,7 @@ stages:
       image: java:8
       shellScript: |-
         cd ./FlonkaTestApp
-        ./FlonkaTestApp/gradlew build unpack
+        gradlew build unpack
   - publishImageConfig:
       dockerfilePath: ./FlonkaTestApp/Dockerfile
       buildContext: .
