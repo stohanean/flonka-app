@@ -1,11 +1,9 @@
-before_script:
-    - chmod +x ./FlonkaTestApp/gradlew
 stages:
 - name: test
   steps:
   - runScriptConfig:
       image: java:8
-      shellScript: ./FlonkaTestApp/gradlew build
+      shellScript: ./FlonkaTestApp/gradlew clean build unpack
   - publishImageConfig:
       dockerfilePath: ./FlonkaTestApp/Dockerfile
       buildContext: .
