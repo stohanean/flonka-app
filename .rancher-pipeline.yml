@@ -1,5 +1,5 @@
 before_script:
-    - chmod +x gradlew
+    - chmod +x ./FlonkaTestApp/gradlew
 stages:
 - name: test
   steps:
