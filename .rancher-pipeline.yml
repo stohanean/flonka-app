@@ -1,1 +1,22 @@
+before_script:
+    - chmod +x ./FlonkaTestApp/gradlew
+stages:
+- name: test
+  steps:
+  - runScriptConfig:
+      image: java:8
+      shellScript: ./FlonkaTestApp/gradlew build
+  - publishImageConfig:
+      dockerfilePath: ./FlonkaTestApp/Dockerfile
+      buildContext: .
+      tag: stohanean/flonka-app:test
+      registry: 127.0.0.1:34509
+- name: prod
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./FlonkaTestApp/Dockerfile
+      buildContext: .
+      tag: stohanean/flonka-app:prod
+      registry: 127.0.0.1:34509
 timeout: 60
+branch: {}
