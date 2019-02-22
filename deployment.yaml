@@ -1,16 +1,3 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: flonka-app
-spec:
-  selector:
-    app: flonka-app
-  type: NodePort
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
