@@ -1,0 +1,4 @@
+   build:
+     context: .
+     # give the complete PATH to your Dockerfile instead of a folder
+     dockerfile: ./Dockerfile
