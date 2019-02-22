@@ -42,14 +42,14 @@ spec:
       - backend:
           serviceName: pipeline-${CICD_EXECUTION_SEQUENCE}
           servicePort: 80
-		path: /flonka
+             path: /flonka
   - host: myrancher2.ro
     http:
       paths:
       - backend:
           serviceName: pipeline-${CICD_EXECUTION_SEQUENCE}
           servicePort: 80
-		path: /florinel
+             path: /florinel
 ---
 apiVersion: v1
 kind: Service
