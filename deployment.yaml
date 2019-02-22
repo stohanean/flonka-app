@@ -1,23 +1,70 @@
-apiVersion: apps/v1
+---
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#  name: pipeline-${CICD_EXECUTION_SEQUENCE}
+#---
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: flonka-app
-  labels:
-    app: flonka-app
+  name: pipeline-${CICD_EXECUTION_SEQUENCE}
+#  namespace: pipeline-${CICD_EXECUTION_SEQUENCE}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flonka-app
+      app: pipeline-${CICD_EXECUTION_SEQUENCE}
   template:
     metadata:
       labels:
-        app: flonka-app
+        app: pipeline-${CICD_EXECUTION_SEQUENCE}
+      name: pipeline-${CICD_EXECUTION_SEQUENCE}
     spec:
-      imagePullSecrets:
-      - name: pipeline-docker-registry
       containers:
-      - name: flonka-app
-        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+      - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        name: pipeline
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
+          name: http
+          protocol: TCP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: pipeline-${CICD_EXECUTION_SEQUENCE}
+#  namespace: pipeline-${CICD_EXECUTION_SEQUENCE}
+spec:
+  rules:
+  - host: myrancher2.ro
+    http:
+      paths:
+      - backend:
+          serviceName: pipeline-${CICD_EXECUTION_SEQUENCE}
+          servicePort: 80
+		path: /flonka
+  - host: myrancher2.ro
+    http:
+      paths:
+      - backend:
+          serviceName: pipeline-${CICD_EXECUTION_SEQUENCE}
+          servicePort: 80
+		path: /florinel
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+      app: pipeline
+      version: "${CICD_EXECUTION_SEQUENCE}"
+  name: pipeline-${CICD_EXECUTION_SEQUENCE}
+#  namespace: pipelines-${CICD_EXECUTION_SEQUENCE}
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  type: ClusterIP
+  selector:
+    app: pipeline-${CICD_EXECUTION_SEQUENCE}
