@@ -1,9 +1,11 @@
 stages:
-- name: test
+- name: Build
   steps:
   - runScriptConfig:
       image: java:8
       shellScript: ./gradlew clean build unpack
+- name: Publish
+  steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
