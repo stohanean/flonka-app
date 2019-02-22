@@ -11,4 +11,8 @@ stages:
       buildContext: .
       tag: stohanean/flonka-app:test
       registry: 127.0.0.1:34509
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
 timeout: 60
