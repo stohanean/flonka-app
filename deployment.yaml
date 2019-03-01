@@ -14,7 +14,7 @@ spec:
       name: pipeline-${CICD_EXECUTION_SEQUENCE}
     spec:
       imagePullSecrets:
-      - name: pipeline-docker-registry
+      - name: p-gpv22:pipeline-docker-registry
       containers:
       - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         name: pipeline
