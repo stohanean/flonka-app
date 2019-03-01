@@ -13,12 +13,12 @@ spec:
         app: pipeline-${CICD_EXECUTION_SEQUENCE}
       name: pipeline-${CICD_EXECUTION_SEQUENCE}
     spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
       containers:
       - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         name: pipeline
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: pipeline-docker-registry
         ports:
         - containerPort: 80
           name: http
