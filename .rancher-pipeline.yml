@@ -9,7 +9,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: stohanean/flonka-app
+      tag: stohanean/pipeline:${CICD_EXECUTION_SEQUENCE}
       registry: 127.0.0.1:34509
 - name: Deploy
   steps:
