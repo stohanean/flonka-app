@@ -17,6 +17,8 @@ spec:
       - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         name: pipeline
         imagePullPolicy: Always
+        imagePullSecrets:
+        - name: p-gpv22-dockerregistrypgpv22pipeline
         ports:
         - containerPort: 80
           name: http
