@@ -1,14 +1,7 @@
----
-#apiVersion: v1
-#kind: Namespace
-#metadata:
-#  name: pipeline-${CICD_EXECUTION_SEQUENCE}
-#---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: pipeline-${CICD_EXECUTION_SEQUENCE}
-#  namespace: pipeline-${CICD_EXECUTION_SEQUENCE}
 spec:
   replicas: 1
   selector:
@@ -28,43 +21,3 @@ spec:
         - containerPort: 80
           name: http
           protocol: TCP
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: pipeline-${CICD_EXECUTION_SEQUENCE}
-#  namespace: pipeline-${CICD_EXECUTION_SEQUENCE}
-spec:
-  rules:
-  - host: myrancher2.ro
-    http:
-      paths:
-      - backend:
-          serviceName: pipeline-${CICD_EXECUTION_SEQUENCE}
-          servicePort: 80
-             path: /flonka
-  - host: myrancher2.ro
-    http:
-      paths:
-      - backend:
-          serviceName: pipeline-${CICD_EXECUTION_SEQUENCE}
-          servicePort: 80
-             path: /florinel
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-      app: pipeline
-      version: "${CICD_EXECUTION_SEQUENCE}"
-  name: pipeline-${CICD_EXECUTION_SEQUENCE}
-#  namespace: pipelines-${CICD_EXECUTION_SEQUENCE}
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  type: ClusterIP
-  selector:
-    app: pipeline-${CICD_EXECUTION_SEQUENCE}
